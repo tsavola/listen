@@ -17,7 +17,7 @@ import (
 // during runtime.
 func Net(ctx context.Context, network, address string) (l net.Listener, err error) {
 	switch network {
-	case "tcp", "tcp4", "tcp6", "udp", "udp4", "udp6":
+	case "tcp", "tcp4", "tcp6":
 		// It's a supported network.
 
 	default:
