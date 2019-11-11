@@ -37,17 +37,12 @@ func Net(ctx context.Context, network, address string) (l net.Listener, err erro
 	if err != nil {
 		return
 	}
-	for i, addr := range addrs {
-		addrs[i] = net.JoinHostPort(addr, port)
+	if len(addrs) < 2 {
+		return net.Listen(network, address)
 	}
 
-	switch len(addrs) {
-	case 0:
-		err = &net.DNSError{Err: "no addresses", Name: address}
-		return
-
-	case 1:
-		return net.Listen(network, addrs[0])
+	for i, addr := range addrs {
+		addrs[i] = net.JoinHostPort(addr, port)
 	}
 
 	listeners := make([]net.Listener, 0, len(addrs))
